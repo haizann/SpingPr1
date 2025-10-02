@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>Hello Eric!</h1>
+    <h1> xin chao ${user.fullName}</h1>
 </body>
 
 </html>

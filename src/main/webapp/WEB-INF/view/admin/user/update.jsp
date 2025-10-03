@@ -6,7 +6,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Create User</title>
+                <title>Update User</title>
                 <!-- Latest compiled and minified CSS -->
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <!-- Latest compiled JavaScript -->
@@ -19,17 +19,17 @@
                 <div class="container mt-5">
                     <div class="row">
                         <div class="col-md-6 col-12 mx-auto">
-                            <form:form method="post" action="/admin/user/create" modelAttribute="newUser">
-                                <h1 class="mb-4">Create User</h1>
+                            <form:form method="post" action="/admin/user/update" modelAttribute="user">
+                                <h1 class="mb-4">Update User</h1>
+                                <div class="mb-3" style="display: none;">
+                                    <label class="form-label">Id: </label>
+                                    <form:input type="text" class="form-control" path="id" />
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email: </label>
-                                    <form:input type="email" class="form-control" path="email" />
+                                    <form:input type="email" class="form-control" path="email" disabled="true" />
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Password: </label>
-                                    <form:input type="password" class="form-control" path="password" />
-                                </div>
-                                <div class="mb-3">
+                                <div class=" mb-3">
                                     <label class="form-label">Phone number: </label>
                                     <form:input type="text" class="form-control" path="phone" />
                                 </div>

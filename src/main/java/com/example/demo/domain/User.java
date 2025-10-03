@@ -1,18 +1,30 @@
 package com.example.demo.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+// mac dinh ten bang trong csdl la giong ten class, muon doi khac thi khai bao
+// bang @Table
+// @Table(name = "nguoi_dung")
 public class User {
-    protected String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
     protected String email;
     protected String password;
     protected String fullName;
     protected String address;
     protected String phone;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -1,34 +1,44 @@
-package com.example.demo.controller;
+package com.example.demo.controller.admin;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.service.RoleService;
+import com.example.demo.service.UploadService;
 import com.example.demo.service.UserService;
 
-import jakarta.websocket.server.PathParam;
+import jakarta.servlet.ServletContext;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class UserController {
     private final UserService userService;
+    private final RoleService roleService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleService roleService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
+        this.roleService = roleService;
     }
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        String test = this.userService.handleHello();
-        model.addAttribute("eric", test);
-        return "hello";
+        return "admin/dashboard/show";
     }
 
     @RequestMapping("/admin/user")
@@ -44,11 +54,19 @@ public class UserController {
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("newUser") User user, Model model) {
-        System.out.println(user);
+    @PostMapping("/admin/user/create")
+    public String createUser(@ModelAttribute("newUser") User user, @RequestParam("avatarFile") MultipartFile file,
+            Model model) {
+        String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
+        user.setAvatar(avatar);
+
+        String nameRole = user.getRole().getName();
+        Role roleUser = this.roleService.handleGetRoleByName(nameRole);
+        user.setRole(roleUser);
+
         this.userService.handleSaveUser(user);
-        return this.getHomeString(model);
+
+        return "redirect:/admin/user/home";
     }
 
     @RequestMapping("admin/user/home")
@@ -60,7 +78,7 @@ public class UserController {
     @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
     public String deleteUser(@RequestParam("userId") Long userId, Model model) {
         this.userService.handleDeleteUser(userId);
-        return this.getHomeString(model);
+        return "redirect:/admin/user/home";
     }
 
     @RequestMapping("/admin/user/view/{id}")
@@ -85,6 +103,6 @@ public class UserController {
 
             this.userService.handleSaveUser(currentUser);
         }
-        return this.getHomeString(model);
+        return "redirect:/admin/user/home";
     }
 }

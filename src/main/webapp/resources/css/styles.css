@@ -1,0 +1,105 @@
+:root {
+    --sidebar-width: 260px;
+}
+
+/* Body */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+    background: #f6f7fb;
+}
+
+/* Sidebar (fixed) */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: #1f2937;
+    color: #fff;
+    overflow-y: auto;
+    z-index: 1040;
+}
+
+#sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    padding: .6rem .9rem;
+    border-radius: .5rem;
+}
+
+#sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+#sidebar .nav-link.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* Navbar offset so it doesn't overlap content and aligns with sidebar */
+.content-offset {
+    margin-left: var(--sidebar-width);
+}
+
+/* Main page content offset for fixed navbar + sidebar */
+.page-container {
+    margin-left: var(--sidebar-width);
+    padding-top: 84px;
+    /* ~56px navbar height + spacing */
+}
+
+/* Optional styles */
+.card {
+    border-radius: .75rem;
+}
+
+.bg-success-subtle {
+    background: #e6f6ec !important;
+}
+
+.bg-warning-subtle {
+    background: #fff4e5 !important;
+}
+
+.bg-danger-subtle {
+    background: #fde8e8 !important;
+}
+
+.bg-primary-subtle {
+    background: #e8f0fe !important;
+}
+
+.text-success {
+    color: #16a34a !important;
+}
+
+.text-warning {
+    color: #ca8a04 !important;
+}
+
+/* Responsive: collapse sidebar on mobile */
+@media (max-width: 991.98px) {
+    #sidebar {
+        transform: translateX(-100%);
+        transition: transform .2s ease-in-out;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+
+    .content-offset,
+    .page-container {
+        margin-left: 0 !important;
+    }
+
+    .page-container {
+        padding-top: 70px;
+    }
+}

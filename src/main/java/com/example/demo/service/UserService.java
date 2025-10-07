@@ -38,5 +38,4 @@ public class UserService {
     public User handleUpdateUser(User user) {
         return this.userRepository.save(user);
     }
-
 }

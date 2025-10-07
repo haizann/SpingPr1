@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +17,6 @@ import com.example.demo.domain.User;
 import com.example.demo.service.RoleService;
 import com.example.demo.service.UploadService;
 import com.example.demo.service.UserService;
-
-import jakarta.servlet.ServletContext;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,11 +29,14 @@ public class UserController {
     private final UserService userService;
     private final RoleService roleService;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, RoleService roleService, UploadService uploadService) {
+    public UserController(UserService userService, RoleService roleService, UploadService uploadService,
+            PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
@@ -57,9 +60,16 @@ public class UserController {
     @PostMapping("/admin/user/create")
     public String createUser(@ModelAttribute("newUser") User user, @RequestParam("avatarFile") MultipartFile file,
             Model model) {
+
+        // hash password
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
+
+        // lưu url avatar
         String avatar = this.uploadService.handleSaveUploadfile(file, "avatar");
         user.setAvatar(avatar);
 
+        // lấy role id
         String nameRole = user.getRole().getName();
         Role roleUser = this.roleService.handleGetRoleByName(nameRole);
         user.setRole(roleUser);

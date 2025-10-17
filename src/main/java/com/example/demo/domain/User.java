@@ -10,6 +10,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 // mac dinh ten bang trong csdl la giong ten class, muon doi khac thi khai bao
@@ -19,11 +24,24 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
+
+    @NotNull
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email cannot be empty")
     protected String email;
+
+    @NotNull
+    @Size(min = 10, message = "Password phải có tối thiểu 2 ký tự")
     protected String password;
+
+    @NotNull
+    @Size(min = 2, message = "Fullname phải có tối thiểu 2 ký tự")
     protected String fullName;
+
     protected String address;
+
+    @Pattern(regexp = "^(0|\\+84)(\\d{9})$", message = "Số điện thoại không hợp lệ. Vui lòng nhập đúng định dạng (VD: 0912345678 hoặc +84912345678)")
     protected String phone;
 
     protected String avatar;

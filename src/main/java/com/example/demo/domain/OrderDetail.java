@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
 
     protected long quantity;
     protected double price;

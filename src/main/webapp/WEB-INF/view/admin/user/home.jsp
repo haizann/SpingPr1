@@ -64,7 +64,7 @@
                                                 <tr>
                                                     <th style="min-width: 80px;">ID</th>
                                                     <th style="min-width: 220px;">Email</th>
-                                                    <th style="min-width: 140px;">Password</th>
+
                                                     <th style="min-width: 140px;">Phone</th>
                                                     <th style="min-width: 200px;">Full Name</th>
                                                     <th>Address</th>
@@ -77,8 +77,7 @@
                                                         <td><span class="text-muted">#${u.id}</span></td>
                                                         <td class="fw-semibold">${u.email}</td>
 
-                                                        <!-- Không hiển thị mật khẩu thật -->
-                                                        <td><span class="text-muted">••••••••</span></td>
+
 
                                                         <td>${u.phone}</td>
                                                         <td>${u.fullName}</td>
@@ -124,7 +123,7 @@
                     src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3/dist/umd/simple-datatables.min.js"></script>
 
                 <!-- Page JS -->
-                <script src="../js/users-home.js"></script>
+                <script src="/js/users-home.js"></script>
             </body>
 
             </html>

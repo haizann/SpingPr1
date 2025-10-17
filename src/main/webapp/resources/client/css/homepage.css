@@ -1,0 +1,164 @@
+body {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container.my-4 h2 {
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    color: #0b2640;
+}
+
+/* Grid and cards */
+.row.products-grid {
+    gap: 0.9rem;
+    justify-content: center;
+    /* center incomplete rows */
+    margin-left: -6px;
+    margin-right: -6px;
+}
+
+/* column wrapper: keep card centered inside column */
+.product-col {
+    display: flex;
+    justify-content: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-bottom: 1rem;
+}
+
+/* Force 4 equal columns on medium+ screens (md = 768px) */
+/* This ensures 4 per row on md and up irrespective of container width issues */
+@media (min-width: 768px) {
+    .product-col {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+/* On very large screens keep 4-per-row but reduce card width slightly for breathing room */
+@media (min-width: 1400px) {
+    .product-col {
+        flex: 0 0 24%;
+        max-width: 24%;
+    }
+}
+
+.card {
+    border: none;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    transition: transform .18s cubic-bezier(.2, .9, .3, 1), box-shadow .18s ease;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* let the grid column control width */
+    max-width: 100%;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(18, 38, 63, 0.10);
+}
+
+/* slightly smaller images so card height is reduced and four fit comfortably */
+.card-img-top {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    background-color: #f1f5f9;
+    transition: opacity .28s ease, transform .28s ease;
+    opacity: 0;
+    transform: scale(1.02);
+}
+
+.card-img-top.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.card-body {
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    flex: 1 0 auto;
+}
+
+.card-title {
+    font-size: 0.98rem;
+    margin-bottom: 0.15rem;
+    font-weight: 600;
+    color: #07203a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.short-desc {
+    color: var(--muted);
+    font-size: .85rem;
+    line-height: 1.15;
+    height: 2.3rem;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.price {
+    font-size: 0.98rem;
+    color: #d63384;
+    font-weight: 700;
+    margin-top: .35rem;
+}
+
+/* Button styles with icons */
+.product-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    height: 38px;
+    font-size: .95rem;
+    border-radius: 8px;
+    padding: 0 .9rem;
+    box-shadow: 0 6px 14px rgba(13, 110, 253, 0.06);
+}
+
+.btn-buy {
+    background-image: linear-gradient(180deg, #2dbb63, #2aa85a);
+    border: none;
+    color: #fff;
+}
+
+.btn-cart {
+    background-image: linear-gradient(180deg, #0b5ed7, var(--accent));
+    border: none;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(11, 94, 215, 0.08);
+}
+
+.product-btn .bi {
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+/* make the bottom button group compact to allow 4 per row */
+.btn-group-vertical .btn {
+    border-radius: 8px;
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+}
+
+.img-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 170px;
+    background: linear-gradient(90deg, #eef3ff, #ffffff);
+    color: #9aa7c0;
+    font-size: 0.92rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}

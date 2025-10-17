@@ -66,6 +66,7 @@
 
                                             <!-- Hidden ID -->
                                             <form:input path="id" type="hidden" />
+                                            <form:input path="password" type="hidden" />
 
                                             <spring:bind path="email">
                                                 <div class="col-md-6">
@@ -83,8 +84,7 @@
                                                     <label for="phone" class="form-label">Số điện thoại</label>
                                                     <form:input path="phone" id="phone" type="text"
                                                         class="form-control ${status.error ? 'is-invalid' : ''}"
-                                                        placeholder="Ví dụ: 0901234567"
-                                                        pattern="^[0-9\\-\\+\\s]{8,15}$" />
+                                                        placeholder="Ví dụ: 0901234567" />
                                                     <form:errors path="phone" cssClass="invalid-feedback d-block" />
                                                 </div>
                                             </spring:bind>
@@ -105,6 +105,22 @@
                                                     <form:input path="address" id="address" type="text"
                                                         class="form-control ${status.error ? 'is-invalid' : ''}" />
                                                     <form:errors path="address" cssClass="invalid-feedback d-block" />
+                                                </div>
+                                            </spring:bind>
+
+                                            <spring:bind path="role">
+                                                <div class="col-md-6">
+                                                    <label for="role" class="form-label">Role</label>
+                                                    <form:select path="role.id"
+                                                        class="form-select ${status.error ? 'is-invalid' : ''}">
+                                                        <!-- Option mặc định -->
+                                                        <form:option value="" label="-- Chọn role --" />
+
+                                                        <!-- Các role lấy từ DB -->
+                                                        <form:options items="${roles}" itemValue="id"
+                                                            itemLabel="name" />
+                                                    </form:select>
+                                                    <form:errors path="role" cssClass="invalid-feedback d-block" />
                                                 </div>
                                             </spring:bind>
 

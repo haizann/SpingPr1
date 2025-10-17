@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
 
     protected double totalPrice;
 

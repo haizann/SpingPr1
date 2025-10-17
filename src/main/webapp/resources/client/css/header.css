@@ -1,0 +1,339 @@
+/* client/css/header.css
+   Clean, professional header styles. Works without Bootstrap; if Bootstrap present it's compatible.
+*/
+
+:root {
+    --brand-green: #37b24d;
+    --muted: #6b7280;
+    --accent: #ffb74d;
+    --bg: #ffffff;
+    --container-width: 1200px;
+}
+
+/* Base header */
+.site-header {
+    background: var(--bg);
+    border-bottom: 1px solid #eef2f6;
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    box-shadow: 0 2px 6px rgba(20, 20, 20, 0.03);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* inner container */
+.header-inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+/* left: logo */
+.header-left {
+    justify-self: start;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: baseline;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-mark {
+    color: var(--brand-green);
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -0.6px;
+}
+
+.logo-name {
+    color: rgba(23, 54, 30, 0.95);
+    font-weight: 600;
+    margin-left: 6px;
+    font-size: 18px;
+}
+
+/* center nav */
+.main-nav {
+    justify-self: center;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all .12s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--brand-green);
+    background: rgba(55, 178, 77, 0.04);
+    text-decoration: none;
+}
+
+.has-dropdown {
+    position: relative;
+}
+
+.has-dropdown .dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(10, 10, 10, 0.08);
+    border-radius: 8px;
+    padding: 8px 6px;
+    display: none;
+    min-width: 160px;
+    z-index: 1200;
+}
+
+.has-dropdown:hover .dropdown,
+.has-dropdown:focus-within .dropdown {
+    display: block;
+}
+
+.dropdown li {
+    list-style: none;
+}
+
+.dropdown a {
+    display: block;
+    padding: 8px 10px;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.dropdown a:hover {
+    background: rgba(55, 178, 77, 0.04);
+    color: var(--brand-green);
+}
+
+/* right actions */
+.header-right {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* icon buttons and profile */
+.btn-icon {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid transparent;
+    transition: transform .1s ease, box-shadow .12s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    border-color: #e6f4ea;
+    background: #fbfff9;
+}
+
+.cart-link {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--accent);
+    color: #1f2937;
+    font-weight: 800;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(20, 20, 20, 0.12);
+}
+
+/* profile button */
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* hamburger */
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #374151;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: transform .18s ease, opacity .12s ease;
+}
+
+/* mobile active (when .open added by JS) */
+.site-header.mobile-open .main-nav {
+    display: block;
+}
+
+.site-header.mobile-open .hamburger .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.site-header.mobile-open .hamburger .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.site-header.mobile-open .hamburger .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* search overlay */
+.search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 10, 10, 0.5);
+    z-index: 1150;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px;
+}
+
+.search-overlay.show {
+    display: flex;
+}
+
+.search-panel {
+    width: 100%;
+    max-width: 880px;
+    background: linear-gradient(180deg, #ffffff, #fbfffb);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(10, 10, 10, 0.2);
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #e6eef0;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-go {
+    background: var(--brand-green);
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.search-close {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+    .header-inner {
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .nav-list {
+        gap: 12px;
+    }
+
+    .hamburger {
+        display: inline-flex;
+    }
+
+    .main-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 64px;
+        background: var(--bg);
+        padding: 12px 18px;
+        border-bottom: 1px solid #eef2f6;
+        display: none;
+        z-index: 1100;
+        box-shadow: 0 8px 24px rgba(10, 10, 10, 0.06);
+    }
+
+    .main-nav .nav-list {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .has-dropdown .dropdown {
+        position: static;
+        box-shadow: none;
+        padding-left: 6px;
+        margin-top: 6px;
+        display: none;
+    }
+
+    .has-dropdown.open .dropdown {
+        display: block;
+    }
+}
+
+/* small tweaks */
+@media (max-width: 480px) {
+    .logo-mark {
+        font-size: 22px;
+    }
+
+    .logo-name {
+        font-size: 15px;
+    }
+}

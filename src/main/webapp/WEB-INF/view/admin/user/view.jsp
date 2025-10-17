@@ -97,7 +97,7 @@
                                         <div>
                                             <c:choose>
                                                 <c:when test="${not empty user.avatar}">
-                                                    <img src="${pageContext.request.contextPath}/resources/images/avatar/${user.avatar}"
+                                                    <img src="${pageContext.request.contextPath}/images/avatar/${user.avatar}"
                                                         alt="Avatar" class="rounded" width="120" height="120"
                                                         style="object-fit: cover; border: 1px solid rgba(0,0,0,.1)" />
                                                 </c:when>

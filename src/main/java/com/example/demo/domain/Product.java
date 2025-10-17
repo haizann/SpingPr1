@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -16,23 +21,33 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
 
     protected String name;
-    protected double price;
+
+    @NotNull(message = "Giá sản phẩm không được để trống")
+    @DecimalMin(value = "0.01", message = "Giá sản phẩm phải lớn hơn 0")
+    protected Double price;
     protected String image;
+
+    @NotEmpty(message = "Khong duoc de trong")
+    @Column(columnDefinition = "MEDIUMTEXT")
     protected String detailDesc;
     protected String shortDesc;
-    protected long quantity;
-    protected long sold;
+
+    @NotNull(message = "Số lượng không được để trống")
+    @Min(value = 1, message = "Số lượng phải lớn hơn hoặc bằng 1")
+    protected Long quantity;
+
+    protected Long sold;
     protected String factory;
     protected String target;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,11 +59,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -76,19 +91,19 @@ public class Product {
         this.shortDesc = shortDesc;
     }
 
-    public long getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
-    public long getSold() {
+    public Long getSold() {
         return sold;
     }
 
-    public void setSold(long sold) {
+    public void setSold(Long sold) {
         this.sold = sold;
     }
 

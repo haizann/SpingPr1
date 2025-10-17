@@ -3,20 +3,21 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.domain.dto.RegisterDTO;
 
 @Service
 public class UserService {
+
+    private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-    }
-
-    public String handleHello() {
-        return "hello from user service";
+        this.roleRepository = roleRepository;
     }
 
     public User handleSaveUser(User user) {
@@ -37,5 +38,17 @@ public class UserService {
 
     public User handleUpdateUser(User user) {
         return this.userRepository.save(user);
+    }
+
+    public Role getRoleByName(String name) {
+        return this.roleRepository.findByName(name);
+    }
+
+    public User registerDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
     }
 }

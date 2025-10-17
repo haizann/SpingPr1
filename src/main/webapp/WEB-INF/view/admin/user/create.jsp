@@ -128,8 +128,8 @@
                                                     <form:select path="role.name"
                                                         class="form-select ${status.error ? 'is-invalid' : ''}">
                                                         <form:option value="" label="-- Chọn role --" />
-                                                        <form:option value="ADMIN" label="Admin" />
-                                                        <form:option value="USER" label="User" />
+                                                        <form:option value="ADMIN" label="ADMIN" />
+                                                        <form:option value="USER" label="USER" />
                                                     </form:select>
                                                     <form:errors path="role" cssClass="invalid-feedback d-block" />
                                                 </div>

@@ -142,6 +142,13 @@
                     flex-direction: column;
                 }
 
+                .invalid-feedback {
+                    color: var(--danger);
+                    font-size: 13px;
+                    margin-top: 4px;
+                    display: block;
+                }
+
                 button[type="submit"] {
                     width: 100%;
                     padding: 12px 14px;
@@ -215,44 +222,42 @@
 
                     <div id="error" class="error" role="alert" aria-live="polite"></div>
 
-                    <form:form id="registerForm" method="post" action="/register" modelAttribute="registerUser"
-                        novalidate="novalidate">
+                    <form:form method="post" action="${pageContext.request.contextPath}/register"
+                        modelAttribute="registerUser">
 
                         <div class="grid">
                             <div class="field">
                                 <label for="firstName">First name</label>
-                                <form:input path="firstName" id="firstName" placeholder="John" />
+                                <form:input path="firstName" id="firstName" />
+                                <form:errors path="firstName" cssClass="invalid-feedback" />
                             </div>
 
                             <div class="field">
                                 <label for="lastName">Last name</label>
-                                <form:input path="lastName" id="lastName" placeholder="Doe" />
+                                <form:input path="lastName" id="lastName" />
+                                <form:errors path="lastName" cssClass="invalid-feedback" />
                             </div>
                         </div>
 
                         <div class="field">
                             <label for="email">Email</label>
-                            <!-- avoid unsupported 'type' attribute on form:input -->
-                            <form:input path="email" id="email" placeholder="you@example.com" />
+                            <form:input path="email" id="email" />
+                            <form:errors path="email" cssClass="invalid-feedback" />
                         </div>
 
                         <div class="field">
                             <label for="password">Password</label>
-                            <form:password path="password" id="password" placeholder="Ít nhất 6 ký tự" />
-                            <button type="button" class="pwd-toggle" id="togglePwd">Show</button>
+                            <form:password path="password" id="password" />
+                            <form:errors path="password" cssClass="invalid-feedback" />
                         </div>
 
                         <div class="field">
                             <label for="confirmPassword">Confirm password</label>
-                            <form:password path="confirmPassword" id="confirmPassword"
-                                placeholder="Nhập lại mật khẩu" />
+                            <form:password path="confirmPassword" id="confirmPassword" />
+                            <form:errors path="confirmPassword" cssClass="invalid-feedback" />
                         </div>
 
-                        <div class="note">Bằng việc đăng ký, bạn đồng ý với các điều khoản sử dụng.</div>
-
-                        <div class="actions">
-                            <button type="submit" id="submitBtn">Register</button>
-                        </div>
+                        <button type="submit">Đăng ký</button>
 
                         <div class="footer-row">
                             <span class="small">Đã có tài khoản?</span>
@@ -264,79 +269,7 @@
                 </div>
             </div>
 
-            <script>
-                (function () {
-                    const form = document.getElementById('registerForm');
-                    const pwd = document.getElementById('password');
-                    const cpwd = document.getElementById('confirmPassword');
-                    const email = document.getElementById('email');
-                    const firstName = document.getElementById('firstName');
-                    const lastName = document.getElementById('lastName');
-                    const errorDiv = document.getElementById('error');
-                    const toggle = document.getElementById('togglePwd');
-                    const submitBtn = document.getElementById('submitBtn');
 
-                    function showError(msg) {
-                        errorDiv.textContent = msg;
-                        errorDiv.style.display = 'block';
-                    }
-                    function clearError() {
-                        errorDiv.textContent = '';
-                        errorDiv.style.display = 'none';
-                    }
-
-                    toggle.addEventListener('click', function () {
-                        const isHidden = pwd.type === 'password';
-                        pwd.type = isHidden ? 'text' : 'password';
-                        cpwd.type = isHidden ? 'text' : 'password';
-                        toggle.textContent = isHidden ? 'Hide' : 'Show';
-                    });
-
-                    form.addEventListener('input', function () {
-                        clearError();
-                    });
-
-                    form.addEventListener('submit', function (e) {
-                        clearError();
-
-                        // Basic required check
-                        if (!firstName.value.trim() || !lastName.value.trim()) {
-                            showError('Vui lòng nhập họ và tên.');
-                            e.preventDefault();
-                            return false;
-                        }
-
-                        // Email format
-                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailPattern.test(email.value)) {
-                            showError('Vui lòng nhập địa chỉ email hợp lệ.');
-                            e.preventDefault();
-                            return false;
-                        }
-
-                        // Password length
-                        if (pwd.value.length < 6) {
-                            showError('Mật khẩu phải có ít nhất 6 ký tự.');
-                            e.preventDefault();
-                            return false;
-                        }
-
-                        // Passwords match
-                        if (pwd.value !== cpwd.value) {
-                            showError('Mật khẩu và xác nhận mật khẩu không khớp.');
-                            e.preventDefault();
-                            return false;
-                        }
-
-                        // Disable submit to prevent double submit
-                        submitBtn.disabled = true;
-                        submitBtn.textContent = 'Registering...';
-
-                        // Allow normal submit (server-side should still validate)
-                        return true;
-                    });
-                })();
-            </script>
         </body>
 
         </html>

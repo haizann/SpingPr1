@@ -100,6 +100,10 @@
                                                                     </a>
                                                                     <form method="post" action="/admin/product/delete"
                                                                         class="d-inline">
+                                                                        <!-- them -->
+                                                                        <input type="hidden"
+                                                                            name="${_csrf.parameterName}"
+                                                                            value="${_csrf.token}" />
                                                                         <input type="hidden" name="productId"
                                                                             value="${p.id}" />
                                                                         <button type="submit"

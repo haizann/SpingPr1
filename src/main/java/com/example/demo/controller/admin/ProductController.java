@@ -31,13 +31,13 @@ public class ProductController {
     @GetMapping("/admin/product")
     public String getProduct(Model model) {
         model.addAttribute("allProducts", this.productService.handleGetAllProduct());
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProduct(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
 
     @PostMapping("/admin/product/create")
@@ -70,7 +70,7 @@ public class ProductController {
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProduct(@PathVariable("id") long id, Model model) {
         model.addAttribute("product", this.productService.handleGetProductById(id));
-        return "/admin/product/update";
+        return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")

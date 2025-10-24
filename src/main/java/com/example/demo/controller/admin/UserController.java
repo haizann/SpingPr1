@@ -45,11 +45,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        return "admin/dashboard/show";
-    }
-
     @RequestMapping("/admin/user")
     public String getAdminPage(Model model) {
         model.addAttribute("newUser", new User());
@@ -76,7 +71,7 @@ public class UserController {
         }
 
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
 
         // hash password

@@ -94,6 +94,9 @@
                                                                 </a>
                                                                 <form method="post" action="/admin/user/delete"
                                                                     class="d-inline">
+                                                                    <!-- them -->
+                                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                                        value="${_csrf.token}" />
                                                                     <input type="hidden" name="userId"
                                                                         value="${u.id}" />
                                                                     <button type="submit"

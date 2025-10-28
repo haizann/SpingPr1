@@ -32,33 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Search overlay open/close
-    function openSearch() {
-        if (searchOverlay) {
-            searchOverlay.classList.add('show');
-            searchOverlay.setAttribute('aria-hidden', 'false');
-            const input = searchOverlay.querySelector('input[type="search"]');
-            if (input) setTimeout(() => input.focus(), 80);
-        }
-    }
-    function closeSearch() {
-        if (searchOverlay) {
-            searchOverlay.classList.remove('show');
-            searchOverlay.setAttribute('aria-hidden', 'true');
-        }
-    }
-
-    searchToggleBtns.forEach(btn => btn.addEventListener('click', openSearch));
-    searchClose.forEach(btn => btn.addEventListener('click', closeSearch));
-    if (searchOverlay) {
-        searchOverlay.addEventListener('click', function (e) {
-            if (e.target === searchOverlay) closeSearch();
-        });
-    }
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeSearch();
-    });
-
     // Small API to update cart badge count anywhere on the page
     window.updateCartCount = function (count) {
         if (!cartBadge) return;
@@ -74,4 +47,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const add = (e.detail && e.detail.qty) ? parseInt(e.detail.qty, 10) : 1;
         window.updateCartCount(current + add);
     });
+
+    // Profile dropdown toggle on mobile
+    const profileBtn = document.getElementById('profileBtn');
+    if (profileBtn) {
+        profileBtn.addEventListener('click', function (e) {
+            if (window.innerWidth <= 900) {
+                e.preventDefault();
+                const parent = this.closest('.profile-menu');
+                parent.classList.toggle('open');
+            }
+        });
+    }
+
 });

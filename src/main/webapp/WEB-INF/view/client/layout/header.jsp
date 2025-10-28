@@ -34,46 +34,55 @@
 
                 <!-- Right: Actions -->
                 <div class="header-right">
-                    <!-- search button -->
-                    <button type="button" class="btn-icon search-toggle" aria-label="Open search">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path d="M21 21l-4.35-4.35" stroke="#37b24d" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <circle cx="11" cy="11" r="6" stroke="#37b24d" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <c:if test="${not empty pageContext.request.userPrincipal}">
+                        <!-- cart link with badge (value from session or 0) -->
+                        <a class="btn-icon cart-link" href="${pageContext.request.contextPath}/cart"
+                            aria-label="View cart" title="Cart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M6 7l1-3h10l1 3" stroke="#37b24d" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M6 7h12v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z" stroke="#37b24d"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M9 10a3 3 0 0 1 6 0" stroke="#37b24d" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span class="cart-badge" id="cartBadge">
+                                <c:out value="${sessionScope.cartCount}" default="0" />
+                            </span>
+                        </a>
 
-                    <!-- cart link with badge (value from session or 0) -->
-                    <a class="btn-icon cart-link" href="${pageContext.request.contextPath}/cart" aria-label="View cart"
-                        title="Cart">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path d="M6 7l1-3h10l1 3" stroke="#37b24d" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M6 7h12v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z" stroke="#37b24d" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M9 10a3 3 0 0 1 6 0" stroke="#37b24d" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                        <span class="cart-badge" id="cartBadge">
-                            <c:out value="${sessionScope.cartCount}" default="0" />
-                        </span>
-                    </a>
+                        <!-- Profile dropdown -->
+                        <div class="profile-menu has-dropdown">
+                            <button class="profile-btn" aria-label="Profile" id="profileBtn">
+                                <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="3.2" fill="#f0f8f3" stroke="#37b24d" stroke-width="1" />
+                                    <path d="M4 20c1.6-4 6-6 8-6s6.4 2 8 6" fill="#f0f8f3" stroke="#37b24d"
+                                        stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                            <ul class="dropdown profile-dropdown">
+                                <li><a href="${pageContext.request.contextPath}/profile">Quản lý tài khoản</a></li>
+                                <li><a href="${pageContext.request.contextPath}/orders">Quản lý mua hàng</a></li>
+                                <li>
+                                    <form method="post" action="/logout">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <button class="btn btn-sm btn-outline-danger">Đăng xuất</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <c:out value="${pageContext.request.userPrincipal.name}" />
 
-                    <!-- profile / avatar placeholder -->
-                    <a class="profile-btn" href="${pageContext.request.contextPath}/profile" aria-label="Profile">
-                        <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">
-                            <circle cx="12" cy="8" r="3.2" fill="#f0f8f3" stroke="#37b24d" stroke-width="1" />
-                            <path d="M4 20c1.6-4 6-6 8-6s6.4 2 8 6" fill="#f0f8f3" stroke="#37b24d" stroke-width="1.1"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-
-                    <!-- mobile hamburger (visible on small screens) -->
-                    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"
-                        aria-controls="mainNav">
-                        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                    </button>
+                        <!-- mobile hamburger (visible on small screens) -->
+                        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"
+                            aria-controls="mainNav">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </button>
+                    </c:if>
+                    <c:if test="${empty pageContext.request.userPrincipal}">
+                        <a href="${pageContext.request.contextPath}/login" class="nav-link"
+                            style="color: red;">Login</a>
+                    </c:if>
                 </div>
             </div>
 

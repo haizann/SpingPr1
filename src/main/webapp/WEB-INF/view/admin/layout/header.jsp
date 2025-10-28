@@ -11,10 +11,13 @@
                 <div class="ms-auto d-flex align-items-center gap-3">
                     <span class="text-secondary">
                         Welcome, <b>
-                            <c:out value="${sessionScope.userName != null ? sessionScope.userName : 'Admin'}" />
+                            <c:out value="${pageContext.request.userPrincipal.name}" />
                         </b>
                     </span>
-                    <a href="/logout" class="btn btn-sm btn-outline-danger">Logout</a>
+                    <form method="post" action="/logout">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <button class="btn btn-sm btn-outline-danger">Đăng xuất</button>
+                    </form>
                 </div>
             </div>
         </nav>
